@@ -41,7 +41,7 @@ end
 %%
 %信道传输相位差添加
 figure
-[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm+1,0,0,100);
+[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm,0,0,100);
 deltan_ch = [];
 for i = 1:Nelm
     deltat_ch = dis_Tx_Rx(i,i)/c;                   %计算不同距离对应的相位差，用deltan表示
