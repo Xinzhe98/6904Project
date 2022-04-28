@@ -1,3 +1,4 @@
+clc;clear;
 f = 1e9;  %载波频率
 c = physconst('LightSpeed');
 D = c/(2*f); %1/2载波波长
@@ -7,12 +8,13 @@ t = 0:1/fs:4e-8 - 1/fs;
 N = length(t);
 w = -1:2/N:1-2/N;  %归一化频率点
 fam = 1e8;  %调幅波频率
-SNR = 0;    %AWGN SNR
+SNR = 20;    %AWGN SNR
 Nelm = 9;   %ULA天线单元数量
-degt = (pi/180)*[45 0 -45];  %Transmitter beamforming angle
-degr = (pi/180)*[45 0 -45];  %Receiver beamforming angle
+degt = (pi/180)*[10 5 0 -5 -10];  %Transmitter beamforming angle
+degr = (pi/180)*[10 5 0 -5 -10];  %Receiver beamforming angle
 %%
 sig = (1+0.5*cos(2*pi*fam*t)).*cos(2*pi*f*t);   %传输的调幅信号
+plot(sig)
 ps = sum(sig.^2)/length(sig);
 pn = ps*10^(-SNR/10);       %AWGN功率
 %%
@@ -32,10 +34,14 @@ for i = 1:length(degt)
     end
     sig_ch(i,:,:) = sig_temp;
 end
+% plot(sig_ch(1,1,:))
+% plot(sig_ch(2,1,:))
+% plot(sig_ch(3,1,:))
+
 %%
 %信道传输相位差添加
 figure
-[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm,pi/4,0,100);
+[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm+1,0,0,100);
 deltan_ch = [];
 for i = 1:Nelm
     deltat_ch = dis_Tx_Rx(i,i)/c;                   %计算不同距离对应的相位差，用deltan表示
