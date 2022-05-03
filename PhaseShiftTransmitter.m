@@ -1,7 +1,7 @@
 function res = PhaseShiftTransmitter(sig,Nelm,deg,fs,D,c)
 %Delay-and-Sum beamforming transmitter
     temp = zeros(size(sig));
-    res = [];
+    res = zeros(length(deg),size(sig,1),size(sig,2));
     for i = 1:length(deg)
         deltat = D*sin(deg(i))/c;
         deltan = round(deltat*fs);

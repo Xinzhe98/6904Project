@@ -22,10 +22,10 @@ for i = 1:numRx
 end
 posRx(:,1) = posRx(:,1)+offset_x;
   
-scatter(posTx(:,1),posTx(:,2))
-hold on;
-scatter(posRx(:,1),posRx(:,2))
-axis equal;
+% scatter(posTx(:,1),posTx(:,2))
+% hold on;
+% scatter(posRx(:,1),posRx(:,2))
+% axis equal;
 
 % distance on x directionbetween each pair of Tx & Rx elements
 disX_Tx_Rx = zeros(numTx,numRx);
@@ -39,5 +39,4 @@ for i = 1:numTx
 end
 % absolute distance of each pair of Tx & Rx elements
 dis_Tx_Rx = sqrt(disY_Tx_Rx.^2+disX_Tx_Rx.^2);
-dis_Tx_Rx
 end

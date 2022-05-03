@@ -1,5 +1,5 @@
 clc;clear;
-f = 1e9;  %载波频率
+f = 1e11;  %载波频率
 c = physconst('LightSpeed');
 D = c/(2*f); %1/2载波波长
 M = 100; %采样频率倍率
@@ -8,9 +8,9 @@ t = 0:1/fs:4e-8 - 1/fs;
 N = length(t);
 w = -1:2/N:1-2/N;  %归一化频率点
 fam = 1e8;  %调幅波频率
-SNR = 20;    %AWGN SNR
-Nelm = 9;   %ULA天线单元数量
-deg = -5:1:5;
+SNR = 10;    %AWGN SNR
+Nelm = 8;   %ULA天线单元数量
+deg = -45:1:45;
 degt = (pi/180)*deg;  %Transmitter beamforming angle
 degr = (pi/180)*deg;  %Receiver beamforming angle
 %%
@@ -42,7 +42,7 @@ end
 %%
 %信道传输相位差添加
 figure
-[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm,0,45,100);
+[posTx,posRx,dis_Tx_Rx] = TxRxPos(c/f,Nelm,Nelm,30,30,100);
 deltan_ch = [];
 for i = 1:Nelm
     deltat_ch = dis_Tx_Rx(i,i)/c;                   %计算不同距离对应的相位差，用deltan表示
@@ -89,4 +89,7 @@ end
 %     end
 % end
 figure
-heatmap(rSNR)
+heatmap(deg,deg,rSNR,XLabel='Tx beamforming angle',YLabel='Rx beamforming angle')
+
+
+
